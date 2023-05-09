@@ -13,6 +13,7 @@ import { PreLoading } from "../../components/preloading";
 const ListDoctor = () => {
   const [loading, setLoading] = useState(false)
   const [data, setData] = useState([])
+  const [dataById, setDataById] = useState({})
   const [filterData, setFilterData] = useState([])
   const [activeSidebar, setActiveSidebar] = useState(false)
   const [selectedItem, setSelectedItem] = useState('')
@@ -23,8 +24,9 @@ const ListDoctor = () => {
   })
 
 
-  const handleSelectedItem = (id) => {
-    setSelectedItem(id)
+  const handleSelectedItem = (data) => {
+    setSelectedItem(data.id_dokter)
+    setDataById(data)
     handleSidebar()
   }
 
@@ -61,12 +63,20 @@ const ListDoctor = () => {
       {
         id_dokter: 1,
         nama_dokter: "Dr. Syachrul",
+        email: "syachrul@gmail.com",
+        alamat: "Jl. Buah Batu",
+        no_telp: "085xxxxx",
+        jenis_kelamin: "Laki-laki",
         id_poli: 1,
         nama_poli: "Poli Anak",
       },
       {
         id_dokter: 2,
         nama_dokter: "Dr. Deffin",
+        email: "deffin@gmail.com",
+        alamat: "Jl. Pajajaran",
+        no_telp: "085xxxxx",
+        jenis_kelamin: "Laki-laki",
         id_poli: 1,
         nama_poli: "Poli Jantung",
       },
@@ -127,7 +137,7 @@ const ListDoctor = () => {
               <div className="row">
                 {
                   filterData.map((value) =>
-                    <CardDoctor data={value} onClick={() => handleSelectedItem(value.id_dokter)} styles={activeSidebar && selectedItem === value.id_dokter ? { transform: 'scale(1.1)', boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px', padding: '1rem' } : { padding: '1rem' }} />
+                    <CardDoctor data={value} onClick={() => handleSelectedItem(value)} styles={activeSidebar && selectedItem === value.id_dokter ? { transform: 'scale(1.1)', boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px', padding: '1rem' } : { padding: '1rem' }} />
                   )
                 }
               </div>
@@ -135,53 +145,53 @@ const ListDoctor = () => {
 
 
           </div>
-
-          <aside className="detailDoctor" style={activeSidebar ? { transform: 'translateX(0)' } : { transform: 'translateX(100%)' }}>
-            <div>
-              <div className="btn-close" onClick={handleSidebar}>
-                <FontAwesomeIcon icon={faXmark} />
-              </div>
-            </div>
-
-            <div style={{ marginTop: '50px' }}>
-              <div className="carddoctor-head">
-                <img src={BgCard} className="img-bg" alt="" />
-                <img src={Doctor} className="img-doctor" alt="" style={{ width: '200px' }} />
-              </div>
-
-              <div className="carddoctor-body" style={{ marginTop: 20 }}>
-                <span className="name">Dr. Syachrul Ardiansyah</span>
-                <span className="desc">Poli Anak</span>
-              </div>
-            </div>
-
-            <div className="information">
-              <div className="content">
-                <span className="head">Alamat</span>
-                <span className="body">Jl. Moch Yunus Gg. Siti Salsah No. 7 Bandung</span>
-              </div>
-              <div className="content">
-                <span className="head">Email</span>
-                <span className="body">syachrul@gmail.com</span>
-              </div>
-              <div className="content">
-                <span className="head">Nomer Telp</span>
-                <span className="body">085xxxxx</span>
-              </div>
-              <div className="content">
-                <span className="head">Jenis Kelamin</span>
-                <span className="body">Laki-laki</span>
-              </div>
-              <div className="content">
-                <span className="head">Jenis Kelamin</span>
-                <span className="body">Laki-laki</span>
-              </div>
-            </div>
-          </aside>
+          <SidebarDoctor activeSidebar={activeSidebar} onClose={() => setActiveSidebar(!activeSidebar)} data={dataById} />
         </>
       )}
     </div>
   );
 };
 
+export const SidebarDoctor = ({ activeSidebar, data, onClose }) => {
+  return (
+    <aside className="detailDoctor" style={activeSidebar ? { transform: 'translateX(0)' } : { transform: 'translateX(100%)' }}>
+      <div>
+        <div className="btn-close" onClick={onClose}>
+          <FontAwesomeIcon icon={faXmark} />
+        </div>
+      </div>
+
+      <div style={{ marginTop: '50px' }}>
+        <div className="carddoctor-head">
+          <img src={BgCard} className="img-bg" alt="" />
+          <img src={Doctor} className="img-doctor" alt="" style={{ width: '200px' }} />
+        </div>
+
+        <div className="carddoctor-body" style={{ marginTop: 20 }}>
+          <span className="name">{data.nama_dokter}</span>
+          <span className="desc">{data.nama_poli}</span>
+        </div>
+      </div>
+
+      <div className="information">
+        <div className="content">
+          <span className="head">Alamat</span>
+          <span className="body">{data.alamat}</span>
+        </div>
+        <div className="content">
+          <span className="head">Email</span>
+          <span className="body">{data.email}</span>
+        </div>
+        <div className="content">
+          <span className="head">Nomer Telp</span>
+          <span className="body">{data.no_telp}</span>
+        </div>
+        <div className="content">
+          <span className="head">Jenis Kelamin</span>
+          <span className="body">{data.jenis_kelamin}</span>
+        </div>
+      </div>
+    </aside>
+  )
+}
 export default ListDoctor;

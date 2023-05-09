@@ -18,7 +18,7 @@ const Menu = () => {
                         initial={{ opacity: 0, translateX: -200 }}
                         animate={{ opacity: 1, translateX: 0 }}
                         transition={{ duration: 1, delay: 1 }}>
-                        <a onClick={() => navigation('/', { replace: true })}>
+                        <a onClick={() => navigation('/')}>
                             Home
                         </a>
                     </motion.li>
@@ -29,7 +29,11 @@ const Menu = () => {
                     <motion.li
                         initial={{ opacity: 0, translateX: -200 }}
                         animate={{ opacity: 1, translateX: 0 }}
-                        transition={{ duration: 1, delay: 2 }}>List Pasien</motion.li>
+                        transition={{ duration: 1, delay: 2 }}>
+                        <a onClick={() => navigation('/listpatient')}>
+                            List Pasien
+                        </a>
+                    </motion.li>
                     <motion.li
                         initial={{ opacity: 0, translateX: -200 }}
                         animate={{ opacity: 1, translateX: 0 }}

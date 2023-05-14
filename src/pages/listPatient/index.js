@@ -99,56 +99,57 @@ const ListPatient = () => {
             ) : (
                 <>
 
-                    <Navbar theme={'dark'} activeMenu={false} />
-                    <div className="listPatient">
-                        <div className="container">
-                            <div className="text-header">
-                                <span className="text-one">List Pasien</span>
-                            </div>
-
-                            <Card style={{ marginTop: 24, marginBottom: 24 }}>
-                                <div style={{ padding: '1rem', display: "flex", flexDirection: "row", gap: 20, }}>
-                                    <Input
-                                        icon={faSearch}
-                                        placeholder="Cari Nama Pasien"
-                                        name='pasien'
-                                        value={search.pasien}
-                                        onChange={handleSearch}
-                                        onCloseChange={() => {
-                                            setSearch({ pasien: '' })
-                                        }} />
-                                    <div style={{ width: '25%' }}>
-                                        <Button label="Cari Sekarang" style={{ marginTop: 0, marginBottom: 0 }} onClick={handleSubmitSearch} />
-                                    </div>
+                    <Navbar>
+                        <div className="listPatient">
+                            <div className="container">
+                                <div className="text-header">
+                                    <span className="text-one">List Pasien</span>
                                 </div>
-                            </Card>
 
-                            <div className='table'>
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Rekam Medis</th>
-                                            <th>Nama</th>
-                                            <th>Alamat</th>
-                                            <th>No.Telp</th>
-                                        </tr>
-                                    </thead>
+                                <Card style={{ marginTop: 24, marginBottom: 24 }}>
+                                    <div style={{ padding: '1rem', display: "flex", flexDirection: "row", gap: 20, }}>
+                                        <Input
+                                            icon={faSearch}
+                                            placeholder="Cari Nama Pasien"
+                                            name='pasien'
+                                            value={search.pasien}
+                                            onChange={handleSearch}
+                                            onCloseChange={() => {
+                                                setSearch({ pasien: '' })
+                                            }} />
+                                        <div style={{ width: '25%' }}>
+                                            <Button label="Cari Sekarang" style={{ marginTop: 0, marginBottom: 0 }} onClick={handleSubmitSearch} />
+                                        </div>
+                                    </div>
+                                </Card>
 
-                                    <tbody>
-                                        {filterData.map(item => (
-                                            <tr onClick={() => handleSelectedItem(item)} style={activeSidebar && selectedItem === item.medrek ? { transform: 'scale(1.01)', boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' } : null}>
-                                                <td>{item.medrek}</td>
-                                                <td>{item.nama_pasien}</td>
-                                                <td>{item.alamat}</td>
-                                                <td>{item.no_telp}</td>
+                                <div className='table'>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Rekam Medis</th>
+                                                <th>Nama</th>
+                                                <th>Alamat</th>
+                                                <th>No.Telp</th>
                                             </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
+                                        </thead>
+
+                                        <tbody>
+                                            {filterData.map(item => (
+                                                <tr onClick={() => handleSelectedItem(item)} style={activeSidebar && selectedItem === item.medrek ? { transform: 'scale(1.01)', boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' } : null}>
+                                                    <td>{item.medrek}</td>
+                                                    <td>{item.nama_pasien}</td>
+                                                    <td>{item.alamat}</td>
+                                                    <td>{item.no_telp}</td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                         <SidebarPatient activeSidebar={activeSidebar} onClose={() => setActiveSidebar(!activeSidebar)} data={dataById} />
-                    </div>
+                    </Navbar>
                 </>
             )}
         </div>
@@ -156,9 +157,6 @@ const ListPatient = () => {
 }
 
 const SidebarPatient = ({ activeSidebar, onClose, data }) => {
-    useEffect(() => {
-        console.log(data)
-    }, [])
     return (
         <aside className="detailDoctor" style={activeSidebar ? { transform: 'translateX(0)' } : { transform: 'translateX(100%)' }}>
             <div>

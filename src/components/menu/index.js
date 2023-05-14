@@ -1,6 +1,5 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import Navbar from '../navbar';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 const Menu = () => {
@@ -11,7 +10,6 @@ const Menu = () => {
             animate={{ width: '100%', borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
             transition={{ duration: 1 }}
             className='menu'>
-            <Navbar theme={'light'} activeMenu={true} />
             <div className='content'>
                 <ul>
                     <motion.li

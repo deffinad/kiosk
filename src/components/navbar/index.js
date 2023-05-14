@@ -8,31 +8,31 @@ import { Navigate, useNavigate } from "react-router-dom";
 import Menu from "../menu";
 import { useEffect } from "react";
 
-const Navbar = ({ theme, activeMenu, children }) => {
+const Navbar = ({ children }) => {
   const navigate = useNavigate()
   const [openMenu, setOpenMenu] = useState(false)
 
-  useEffect(() => {
-    setOpenMenu(activeMenu)
-  }, [activeMenu])
-
   const handleOpenMenu = () => {
     setOpenMenu(!openMenu)
-
-    openMenu ? navigate('/menu') : navigate(-1)
   }
 
   return (
     <div>
       <nav className="navbar">
         <div className="navbar-left" onClick={handleOpenMenu}>
-          <FontAwesomeIcon icon={activeMenu ? faXmark : faBars} color={theme === 'dark' ? "#0e204d" : '#fff'} />
+          <FontAwesomeIcon icon={openMenu ? faXmark : faBars} color={!openMenu ? "#0e204d" : '#fff'} />
         </div>
 
         <div className="navbar-brand">
-          <img src={theme === 'dark' ? Logo : LogoWhite} />
+          <img src={!openMenu ? Logo : LogoWhite} />
         </div>
       </nav>
+
+      {openMenu ? (
+        <Menu />
+      ) :
+        children
+      }
     </div>
   );
 };

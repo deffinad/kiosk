@@ -97,55 +97,56 @@ const ListDoctor = () => {
       ) : (
         <>
 
-          <Navbar theme={'dark'} activeMenu={false} />
-          <div className="listDoctor">
-            <div className="container">
-              <div className="text-header">
-                <span className="text-one">Jadwal Dokter</span>
-              </div>
-
-              <Card style={{ marginTop: 24, marginBottom: 24 }}>
-                <div style={{ padding: '1rem', display: "flex", flexDirection: "row", gap: 20, }}>
-                  <Input
-                    icon={faSearch}
-                    placeholder="Cari Nama Dokter"
-                    name='doctor'
-                    value={search.doctor}
-                    onChange={handleSearch}
-                    onCloseChange={() => {
-                      setSearch({ doctor: '' })
-                    }} />
-
-                  <div className="divider"></div>
-
-                  <Input
-                    icon={faSearch}
-                    placeholder="Cari Poli Klinik"
-                    name='clinic'
-                    value={search.clinic}
-                    onChange={handleSearch}
-                    onCloseChange={() => {
-                      setSearch({ clinic: '' })
-                    }} />
-
-                  <div style={{ width: '50%' }}>
-                    <Button label="Cari Sekarang" style={{ marginTop: 0, marginBottom: 0 }} onClick={handleSubmitSearch} />
-                  </div>
+          <Navbar>
+            <div className="listDoctor">
+              <div className="container">
+                <div className="text-header">
+                  <span className="text-one">Jadwal Dokter</span>
                 </div>
-              </Card>
 
-              <div className="row">
-                {
-                  filterData.map((value) =>
-                    <CardDoctor data={value} onClick={() => handleSelectedItem(value)} styles={activeSidebar && selectedItem === value.id_dokter ? { transform: 'scale(1.1)', boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px', padding: '1rem' } : { padding: '1rem' }} />
-                  )
-                }
+                <Card style={{ marginTop: 24, marginBottom: 24 }}>
+                  <div style={{ padding: '1rem', display: "flex", flexDirection: "row", gap: 20, }}>
+                    <Input
+                      icon={faSearch}
+                      placeholder="Cari Nama Dokter"
+                      name='doctor'
+                      value={search.doctor}
+                      onChange={handleSearch}
+                      onCloseChange={() => {
+                        setSearch({ doctor: '' })
+                      }} />
+
+                    <div className="divider"></div>
+
+                    <Input
+                      icon={faSearch}
+                      placeholder="Cari Poli Klinik"
+                      name='clinic'
+                      value={search.clinic}
+                      onChange={handleSearch}
+                      onCloseChange={() => {
+                        setSearch({ clinic: '' })
+                      }} />
+
+                    <div style={{ width: '50%' }}>
+                      <Button label="Cari Sekarang" style={{ marginTop: 0, marginBottom: 0 }} onClick={handleSubmitSearch} />
+                    </div>
+                  </div>
+                </Card>
+
+                <div className="row">
+                  {
+                    filterData.map((value) =>
+                      <CardDoctor data={value} onClick={() => handleSelectedItem(value)} styles={activeSidebar && selectedItem === value.id_dokter ? { transform: 'scale(1.1)', boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px', padding: '1rem' } : { padding: '1rem' }} />
+                    )
+                  }
+                </div>
               </div>
+
+
             </div>
-
-
-          </div>
-          <SidebarDoctor activeSidebar={activeSidebar} onClose={() => setActiveSidebar(!activeSidebar)} data={dataById} />
+            <SidebarDoctor activeSidebar={activeSidebar} onClose={() => setActiveSidebar(!activeSidebar)} data={dataById} />
+          </Navbar>
         </>
       )}
     </div>

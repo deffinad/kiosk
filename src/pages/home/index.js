@@ -15,9 +15,35 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { PreLoading } from "../../components/preloading";
 import Fullpage, { FullPageSections, FullpageNavigation, FullpageSection } from "@ap.cx/react-fullpage";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
+const dataDoctor = [
+  {
+    id: 1,
+    name: 'Dr. Syahcrul Ardiansyah',
+    poli: 'Poli Anak',
+    description: "Fugiat nulla ea laborum sunt anim eu. Reprehenderit laboris reprehenderit deserunt fugiat laboris nisi dolore mollit. Consequat ipsum laborum aliquip amet voluptate ipsum fugiat. Fugiat proident ut in anim irure commodo ea cillum dolore tempor consectetur ex nisi ipsum.",
+    image: Doctor
+  },
+  {
+    id: 2,
+    name: 'Dr. Deffin Achmaddifa',
+    poli: 'Poli Jantung',
+    description: "Fugiat nulla ea laborum sunt anim eu. Reprehenderit laboris reprehenderit deserunt fugiat laboris nisi dolore mollit. Consequat ipsum laborum aliquip amet voluptate ipsum fugiat. Fugiat proident ut in anim irure commodo ea cillum dolore tempor consectetur ex nisi ipsum.",
+    image: Doctor
+  },
+  {
+    id: 3,
+    name: 'Dr. Phonteka Vivaldi',
+    poli: 'Poli Anak',
+    description: "Fugiat nulla ea laborum sunt anim eu. Reprehenderit laboris reprehenderit deserunt fugiat laboris nisi dolore mollit. Consequat ipsum laborum aliquip amet voluptate ipsum fugiat. Fugiat proident ut in anim irure commodo ea cillum dolore tempor consectetur ex nisi ipsum.",
+    image: Doctor
+  }
+]
 const Home = () => {
   const [loading, setLoading] = useState(false)
+  const [selectedDoctor, setSelectedDoctor] = useState(1)
 
   useEffect(() => {
     setLoading(true)
@@ -25,6 +51,15 @@ const Home = () => {
       setLoading(false)
     }, 3000)
   }, [])
+
+  const handleNextDoctor = () => {
+    const count = dataDoctor.length
+    selectedDoctor === count ? setSelectedDoctor(1) : setSelectedDoctor(selectedDoctor + 1)
+  }
+
+  const handlePrevDoctor = () => {
+    selectedDoctor === 1 ? setSelectedDoctor(dataDoctor.length) : setSelectedDoctor(selectedDoctor - 1)
+  }
 
   return (
     <div>
@@ -116,11 +151,13 @@ const Home = () => {
                             </span>
                           </div>
 
-                          <p>DR. dr. H. Aceng Solahudin Ahmad, M.Kes 2019 -- sekarang</p>
-                          <span>
-                            “Sudah selayaknya kami memberikan pelayanan terbaik khususnya
-                            dalam bidang kesehatan untuk Masyarakat Kab. Sumedang”
-                          </span>
+                          <div className="text-content">
+                            <p className="name">DR. dr. H. Aceng Solahudin Ahmad, M.Kes 2019 -- sekarang</p>
+                            <span className="desc">
+                              “Sudah selayaknya kami memberikan pelayanan terbaik khususnya
+                              dalam bidang kesehatan untuk Masyarakat Kab. Sumedang”
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </section>
@@ -130,28 +167,54 @@ const Home = () => {
                     <section className="doctor">
                       <img src={Waves4} className="waves-four" />
                       <div className="container">
-                        <div className="description">
-                          <div className="text-header">
-                            <span className="text-one">Direktur</span>
-                            <span className="text-two">
-                              RSUD <span className="text-three">SUMEDANG</span>
-                            </span>
-                          </div>
 
-                          <p>Dr. Syachrul Ardiansyah</p>
-                          <p>Poli Anak</p>
-                          <p>
-                            RSUD Kab. Sumedang adalah rumah sakit umum milik Pemerintah
-                            Daerah Kabupaten Sumedang, Jawa Barat, Indonesia yang terletak
-                            di ibu kota kabupaten Sumedang Rumah sakit ini merupakan salah
-                            satu dari tiga rumah sakit di kabupaten Sumedang (dua
-                            diantaranya Rumah Sakit Swasta)
-                          </p>
-                        </div>
+                        {
+                          dataDoctor.map((value) => (
+                            value.id === selectedDoctor ? (
+                              <>
+                                <div className="description" key={value.id}>
+                                  <div className="text-header">
+                                    <span className="text-one">Dokter </span>
+                                    <span className="text-two">
+                                      RSUD <span className="text-three">SUMEDANG</span>
+                                    </span>
+                                  </div>
 
-                        <div className="image">
-                          <img src={Doctor} alt="Dokter" />
-                        </div>
+                                  <motion.div
+                                    initial={{ opacity: 0, translateX: -100 }}
+                                    animate={{ opacity: 1, translateX: 0 }}
+                                    transition={{ duration: 0.7 }}
+                                    className="text-content">
+                                    <p className="name">{value.name}</p>
+                                    <p className="poli">{value.poli}</p>
+                                    <p className="desc">
+                                      {value.description}
+                                    </p>
+                                  </motion.div>
+
+                                  <div className="button-group">
+                                    <button className="btnPrev" onClick={handlePrevDoctor}>
+                                      <FontAwesomeIcon icon={faArrowLeft} size="2x" />
+                                    </button>
+                                    <button className="btnNext" onClick={handleNextDoctor}>
+                                      <FontAwesomeIcon icon={faArrowRight} size="2x" />
+                                    </button>
+                                  </div>
+
+                                </div>
+
+                                <motion.div
+                                  initial={{ opacity: 0, translateX: 100 }}
+                                  animate={{ opacity: 1, translateX: 0 }}
+                                  transition={{ duration: 0.7 }}
+                                  className="image">
+                                  <img src={value.image} alt="Dokter" />
+                                </motion.div>
+                              </>
+                            ) : null
+                          ))
+                        }
+
                       </div>
                     </section>
                   </FullpageSection>
@@ -161,7 +224,7 @@ const Home = () => {
           </>
         )
       }
-    </div>
+    </div >
   );
 };
 

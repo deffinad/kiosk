@@ -23,7 +23,11 @@ const Menu = () => {
                     <motion.li
                         initial={{ opacity: 0, translateX: -200 }}
                         animate={{ opacity: 1, translateX: 0 }}
-                        transition={{ duration: 1, delay: 1.5 }}>Fasilitas & Pelayanan</motion.li>
+                        transition={{ duration: 1, delay: 1.5 }}>
+                        <a onClick={() => navigation('/fasilitas/pelayanan')}>
+                            Fasilitas & Pelayanan
+                        </a>
+                    </motion.li>
                     <motion.li
                         initial={{ opacity: 0, translateX: -200 }}
                         animate={{ opacity: 1, translateX: 0 }}
